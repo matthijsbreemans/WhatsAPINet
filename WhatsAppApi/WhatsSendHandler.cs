@@ -428,6 +428,27 @@ namespace WhatsAppApi
         }
 
         /// <summary>
+        /// Get all groups
+        /// </summary>
+        /// <param name="type">group type: owning or participating</param>
+        public void SendGetGroups(string type)
+        {
+            var id = TicketCounter.MakeId("getgroups");
+            var node = new ProtocolTreeNode("iq",
+                                        new[]
+                                                {
+                                                    new KeyValue("id", id), 
+                                                    new KeyValue("type", "get"),
+                                                    new KeyValue("to", "g.us"),
+                                                    new KeyValue("xmlns", "w:g")
+                                                }, new ProtocolTreeNode("list", new[] { new KeyValue("type", type) }));
+
+            //  "xmlns" => "w:g",
+            //"to" => "g.us"
+            this.whatsNetwork.SendData(this.BinWriter.Write(node));
+        }
+
+        /// <summary>
         /// Make a request to retrieve the status for specific jabber id.
         /// </summary>
         /// <param name="jid">The jabber id the the status should be retrieved from.</param>

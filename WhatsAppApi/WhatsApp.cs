@@ -253,7 +253,14 @@ namespace WhatsAppApi
             }
             return tmpReturn;
         }
-
+        /// <summary>
+        /// Get all groups
+        /// </summary>
+        /// <param name="type"> Type of list of groups to retrieve. "owning" or "participating"</param>
+        public void GetAllGroups(string type)
+        {
+            this.WhatsSendHandler.SendGetGroups(type);
+        }
         /// <summary>
         /// Checks wether we have messages to retrieve
         /// </summary>
